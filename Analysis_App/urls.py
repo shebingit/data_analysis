@@ -10,6 +10,8 @@ urlpatterns =[
                 path('About',views.About,name='About'),
                 path('Contact',views.Contact,name='Contact'),
 
+                path('Account-Sinup',views.Signup_Page,name='Signup_Page'), # SingUp page load
+
 
               
             ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

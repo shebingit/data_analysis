@@ -12,10 +12,19 @@
     {
     text-align: center;
     }
-    #login-form
+    #signup-form
     {
         text-align: center;
 
+    }
+    .back-arrow
+    {
+        text-align: start;
+    }
+    .back-arrow ion-icon
+    {
+        font-size: 24px;
+        color: #000000;
     }
     .form-card
     {
@@ -103,53 +112,47 @@
        
         color: #080836;
     }
-    @media(max-width:734px)
-    {
-        .div-link
-        {
-            flex-direction: column;
-            padding: 0.30em;
-            margin-top: 0.40em;
-        }
-        .div-link a{
-            margin-top: 0.80em;
-        }
-    }
 </style>
 
 
 <section id="Top-section">
 
     <div class="container left-side" id="home-content">
-        <h1>Welcome To Data Analysis Tool <ion-icon name="server"></ion-icon></h1>
+        <h1>Welcome To Data Analysis Tool  <ion-icon name="server"></ion-icon></h1>
         <p>This Website Provide The Best Data Analysis Of Your Data .</p>
         
     </div>
-    <div class="container right-side" id="login-form">
+    <div class="container right-side" id="signup-form">
        <form>
         {% csrf_token %}
 
         <div class="card form-card">
+            <a href="{% url 'Analysis_HomePage' %}" class="back-arrow"><ion-icon name="arrow-back-circle" ></ion-icon></a>
             <div class="card-head">
-                <h5>Sign In</h5>
+                <h5>Sign Up</h5>
             </div>
             <div class="card-body">
+                <div class="inputs-group">
+                    
+                    <span><ion-icon name="person-outline"></ion-icon><input type="text" placeholder="Full Name *" required></span> 
+                 </div>
                 <div class="inputs-group">
                     
                    <span><ion-icon name="mail-outline"></ion-icon><input type="email" placeholder="Email Id *" required></span> 
                 </div>
                 <div class="inputs-group">
                    
-                    <span><ion-icon name="lock-closed-outline"></ion-icon><input type="password" placeholder="Password *" required></span>
+                    <span><ion-icon name="lock-closed-outline"></ion-icon><input type="password" placeholder=" Create Password *" required></span>
                 </div>
                 <div class="submitt_btn">
-                   <button type="submit">Login</button>
+                   <button type="submit">Register</button>
                 </div>
 
                 <div class="div-link">
-                    <a href="{% url 'Signup_Page' %}"><span>Sign Up ?</span></a>
+                    <a href="{% url 'Analysis_HomePage' %}"><span> Sign In </span></a>
+                    <a href="{% url 'Analysis_HomePage' %}"><span> Back ? </span></a>
        
-                    <a href="#"><span>Forgott Password ?</span></a>
+                    
                 </div>
                 
             </div>
@@ -167,7 +170,3 @@
 
 
 {% endblock %}
-
-
-
-

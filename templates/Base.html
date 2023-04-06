@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Data Analsis</title>
+  <title>Data Analysis Tool</title>
   <link rel="icon" href="{% static 'images/top_icon.ico' %}" type="image/icon type">
  
   <link rel="icon" type="image/x-icon" href="/images/top_icon.ico">
@@ -27,10 +27,35 @@
         display: grid;
         grid-template-columns: 1.4fr 0.80fr;
         align-items: center;
-        height: 92vh;
-       
-       
-       
+        min-height: 92vh;
+
+    }
+    .navbar-brand {
+        padding-left: 1.8rem;
+    }
+    .navbar-nav .nav-link {
+        padding-left: 2rem;
+    }
+    #navbarNav
+    {
+
+        justify-content:end; 
+        margin-right: 3rem;
+    }
+    #navbarNav ul li
+    {
+
+       padding-right: 1em;
+    }
+    .navbar-toggler {
+        margin-right: 1rem;
+        border:none;
+        border-radius: .25rem;
+    }
+    .navbar-toggler:focus {
+        text-decoration: none;
+        outline: 0;
+        box-shadow: 0 0 0 0.02rem;
     }
 
     @media(max-width:832px)
@@ -82,7 +107,7 @@
     <!--- Icons-->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    
+
     <!-- End Icons-->
 
     <!-- End Script -->

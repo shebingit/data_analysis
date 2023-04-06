@@ -2,19 +2,175 @@
 {% load static %}
 {% block content %}
 
+<style>
+    body
+    {
+        background: #00000008;
+    }
+    #contact-message
+    {
+        text-align: center;
+    }
+
+    #contact-form
+    {
+        text-align: center;
+
+    }
+    .back-arrow
+    {
+        text-align: start;
+    }
+    .back-arrow ion-icon
+    {
+        font-size: 24px;
+        color: #000000;
+    }
+    .form-card
+    {
+        padding: 2em;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        background: transparent; 
+        background-color: #fff;
+        border-radius: 20px;
+        max-width: 330px;
+    }
+    .form-card:hover{
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+    }
+    .card-head
+    {
+        text-align: center;
+        margin-top: 0.30rem;
+    }
+    .card-head h6{
+        font-size: 0.90em;
+        letter-spacing: 0.06em;
+        font-weight: 600;
+        color: rgb(24, 11, 75);
+    }
+   
+    .inputs-group
+    {
+        padding:0.10em 1em;
+        text-align: center;
+    }
+  
+    .inputs-group input, .inputs-group textarea{
+        width: 80%;
+        height: 40px;
+        border: none ;
+        border-bottom: 1px solid  aliceblue;
+        background: transparent;
+        margin-top: 2em;
+        outline: none;
+        font-size: 0.80em;
+    }
+    .inputs-group ion-icon 
+    {
+        padding-right: 0.40em;
+    }
+    .submitt_btn
+    {
+        text-align: center;
+        margin-top: 1.6em;
+      
+    }
+    .submitt_btn button
+    {
+        border: none;
+        padding: 0.40em 1em;
+        font-family:Georgia, 'Times New Roman', Times, serif;
+        font-weight: 500;
+        letter-spacing: 0.07em;
+        font-size: 0.80em;
+        background:#1b083e;
+        color: #fff;
+        border-radius: 5px;
+    }
+    .submitt_btn button:hover
+    { 
+        color: #f1eff4;
+       
+        background:#000000;
+    }
+    .div-link
+    {
+        padding: 0.60em;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 1em;
+    }
+    .div-link a{
+        font-size: 0.75em;
+        font-weight: 500;
+        text-decoration: none;
+        letter-spacing: 0.07em;
+        font-style: italic;
+    }
+    .div-link a:hover
+    {
+       
+        color: #080836;
+    }
+  
+</style>
+
 <section id="Top-section">
 
     <div class="container left-side" id="contact-message">
-        <h1>We Are Happy To Connect You</h1>
+        <h1>We Are Happy To Connect You <ion-icon name="happy"></ion-icon></h1>
         <p>This Website Provide The Best Data Analysis Of Your Data .</p>
-        <button class="btn btn-primary">Click me!</button>
+        
     </div>
-    <div class="container right-side" id="contact-form">
 
-    </div>
+    <div class="container right-side" id="contact-form">
+        <form>
+         {% csrf_token %}
+ 
+         <div class="card form-card">
+             <a href="{% url 'Analysis_HomePage' %}" class="back-arrow"><ion-icon name="arrow-back-circle" ></ion-icon></a>
+             <div class="card-head">
+                 <h6>Message Us Your Queries</h6>
+             </div>
+             <div class="card-body">
+                 <div class="inputs-group">
+                     
+                     <span><ion-icon name="person-outline"></ion-icon><input type="text" placeholder="Full Name *" required></span> 
+                  </div>
+                 <div class="inputs-group">
+                     
+                    <span><ion-icon name="mail-outline"></ion-icon><input type="email" placeholder="Email Id *" required></span> 
+                 </div>
+                 <div class="inputs-group">
+                    
+                     <span><ion-icon name="paper-plane-outline"></ion-icon><textarea placeholder=" Message *" required></textarea></span>
+                 </div>
+                 <div class="submitt_btn">
+                    <button type="submit">Send</button>
+                 </div>
+ 
+                 <div class="div-link">
+                     <a href="{% url 'Analysis_HomePage' %}"><span> Sign In </span></a>
+                     <a href="{% url 'Analysis_HomePage' %}"><span> Back ? </span></a>
+        
+                 </div>
+                 
+             </div>
+             
+         </div>
+        
+ 
+ 
+        </form>
+ 
+     </div>
 
 </section>
 
 
 
 {% endblock %}
+
+
