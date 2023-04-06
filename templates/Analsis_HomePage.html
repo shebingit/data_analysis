@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<style>
+    body
+    {
+        background: #00000008;
+    }
+    #home-content
+    {
+    text-align: center;
+    }
+    #login-form
+    {
+        text-align: center;
+
+    }
+    .form-card
+    {
+        padding: 2em;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        background: transparent; 
+        background-color: #fff;
+        border-radius: 20px;
+        max-width: 330px;
+    }
+    .card-head
+    {
+        text-align: center;
+        font-size: 1.6em;
+        font-weight: 600;
+        color: rgb(24, 11, 75);
+        letter-spacing: 0.06em;
+    }
+   
+    .inputs-group
+    {
+        padding:0.10em 1em;
+        text-align: center;
+    }
+  
+    .inputs-group input{
+        width: 80%;
+        height: 40px;
+        border: none ;
+        border-bottom: 1px solid  aliceblue;
+        background: transparent;
+        margin-top: 2em;
+       
+        outline: none;
+        font-size: 0.80em;
+    }
+    .inputs-group ion-icon 
+    {
+        padding-right: 0.40em;
+    }
+    .submitt_btn
+    {
+        text-align: center;
+        margin-top: 1em;
+      
+    }
+    .submitt_btn button
+    {
+        border: none;
+        padding: 0.40em 1em;
+        font-family:Georgia, 'Times New Roman', Times, serif;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        font-size: 0.92em;
+        background:#250959;
+        color: #fff;
+    }
+    .submitt_btn button:hover
+    { 
+        color: #f1eff4;
+       
+        background:#000000;
+    }
+    .div-link
+    {
+        padding: 0.60em;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 1em;
+    }
+    .div-link a{
+        font-size: 0.75em;
+        font-weight: 500;
+        text-decoration: none;
+        letter-spacing: 0.07em;
+        font-style: italic;
+    }
+</style>
+
+
+<section id="Top-section">
+
+    <div class="container left-side" id="home-content">
+        <h1>Welcome To Data Analysis</h1>
+        <p>This Website Provide The Best Data Analysis Of Your Data .</p>
+        
+    </div>
+    <div class="container right-side" id="login-form">
+       <form>
+        {% csrf_token %}
+
+        <div class="card form-card">
+            <div class="card-head">
+                <h5>Sign In</h5>
+            </div>
+            <div class="card-body">
+                <div class="inputs-group">
+                    
+                   <span><ion-icon name="mail-outline"></ion-icon><input type="email" placeholder="Email Id *" required></span> 
+                </div>
+                <div class="inputs-group">
+                   
+                    <span><ion-icon name="lock-closed-outline"></ion-icon><input type="password" placeholder="Password *" required></span>
+                </div>
+                <div class="submitt_btn">
+                   <button type="submit">Login</button>
+                </div>
+
+                <div class="div-link">
+                    <a href="#"><span>Create account</span></a>
+       
+                    <a href="#"><span>Forgott Password</span></a>
+                </div>
+                
+            </div>
+            
+        </div>
+       
+
+
+       </form>
+
+    </div>
+
+</section>
+
+
+
+{% endblock %}
+
+
+
+

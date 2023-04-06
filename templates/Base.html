@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Analsis</title>
+  <link rel="icon" href="{% static 'images/top_icon.ico' %}" type="image/icon type">
+ 
+  <link rel="icon" type="image/x-icon" href="/images/top_icon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
+
+
+  <!-- Base page styleling-->
+
+  <style>
+   #full-section
+    {
+        background: #00000008;
+
+       
+    }
+    #Top-section
+    {
+        background: #00000008;
+        padding: 2em;
+        display: grid;
+        grid-template-columns: 1.4fr 0.80fr;
+        align-items: center;
+        height: 92vh;
+       
+       
+       
+    }
+
+    @media(max-width:832px)
+    {
+        #Top-section
+        {
+            grid-template-columns: repeat(1,1fr);
+        }
+    }
+
+  </style>
+
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="{% url 'Analysis_HomePage' %}">DATooL</a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="{% url 'Analysis_HomePage' %}">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'About' %}">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'Contact' %}">Contact</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+    <section id="full-section">
+
+    {% block content %}
+
+    {% endblock %}
+
+
+    <!-- Script -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+
+
+    <!--- Icons-->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    
+    <!-- End Icons-->
+
+    <!-- End Script -->
+    </section>
+</body>
+</html>
