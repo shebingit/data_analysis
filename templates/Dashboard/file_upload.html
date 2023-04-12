@@ -1,0 +1,294 @@
+{% extends 'Dashboard/dashboard_base.html' %}
+{% load static %}
+{% block content %}
+<link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+<style>
+   .msg-box
+    {
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
+    .msg-box .error
+    {
+        font-size: 0.80em;
+        color: #e11515;
+        font-weight: 500;
+    }
+    
+    .msg-box .success
+    {
+        font-size: 0.80em;
+        color: #55cc10;
+        font-weight: 600;
+    }
+    .recent-files-box
+    { 
+        margin-bottom: 1em;
+        overflow-y: scroll;
+        padding:0.60em 1em;
+        max-height: 45vh;
+       
+    }
+
+    .recent-files-box::-webkit-scrollbar {
+    width: 7px;
+    }
+    .recent-files-box::-webkit-scrollbar-track {
+        
+        border-radius: 5px;
+    }
+    
+    .recent-files-box::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        -webkit-box-shadow: inset 0 0 4px rgba(112, 111, 111, 0.4); 
+    }
+    .text-bold-7
+    {
+        font-weight: 700;
+    }
+    .recent-files-upload
+    {
+       
+        margin-bottom: 1em;
+        padding:0.60em 1em;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+       
+    }
+
+    .recent-files-upload .card
+    {
+
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        border: none;
+        outline: none;
+        font-size: 0.90em;
+    
+    }
+    .recent-files-upload .card .card-header,
+    .recent-files-upload .card .card-footer
+    {
+        border: none;
+        outline: none;
+     
+    }
+  
+    .recent-files-upload .card .card-header h6
+    {
+        font-size: 0.95em;
+        margin-top: 0.98em;
+        color: rgb(13, 11, 59);
+    }
+    input
+    {
+        padding: 0.40em 0.90em;
+    }
+    input[type=text]
+    {
+        outline: none;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        border: none;
+        padding: 0.80em 0.90em;
+    }
+    input[type=text]:focus
+    {
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    }
+    input[type=file]
+    {
+        font-size: 0.90em;
+        border: none;
+        outline: none;
+        
+    }
+    .recent-files-upload .card .card-footer
+    {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .recent-files-upload .card .card-footer p
+    {
+        font-size: 0.90em;
+        margin-top: 1em;
+        color: rgb(16, 15, 15);
+    }
+    
+    .remove-file i
+    {
+        text-align: end;
+        color: rgb(236, 60, 60);
+    }
+    #file_status
+    {
+        color: rgb(7, 176, 75);
+    }
+
+    @media(max-width:832px)
+    {
+        .recent-files-upload
+        {
+            grid-template-columns:repeat(1,1fr)
+            
+           
+        }
+        .upload-filebtn
+        {
+            margin-top: 1em;
+            text-align: end;
+        }
+       
+    }
+  
+</style>
+
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Upload</h1>
+        <a href="{% url 'user_dashboard' %}" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i
+                class="fas fa-backward fa-sm text-white-70"></i> </a>
+    </div>
+
+     <!-- message display -->
+     {% if message %}
+    
+     <div class="msg-box" >
+         <span class="error" >{{message}}</span>
+     </div>
+
+     {% endif %}
+     <!-- end -->
+     
+     <!-- message display -->
+     {% if success_message %}
+    
+     <div class="msg-box">
+         <span class="success">{{success_message}}</span>
+     </div>
+
+     {% endif %}
+     <!-- end -->
+     
+
+
+    <div class="container-fluid recent-files-upload">
+        <form action="{% url 'uploadfiles' %}" method="post" class="card mt-3 mb-4" enctype="multipart/form-data">
+            {% csrf_token %}
+          
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Choose File To Analysis</h6>
+            </div>
+            <div class="card-body">
+                
+                <input type="text" class="w-100 mb-4 mt-3" name="fileName" id="file_name" placeholder="Fill your file name" required>
+            
+             
+                <input type="file" id="myFile" name="files_data" onchange="displayFileName()" required>
+                <button type="sumbit" class="upload-filebtn d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                <i class="fas fa-upload fa-sm text-white-70"></i> 
+               
+                </button>
+            
+            </div>
+            <div class="card-footer py-3">
+                <p class="m-0 font-weight-bold">File Name : &nbsp;<span id="fileName"></span></p>
+                <p class="m-0 font-weight-bold" id="file_status"></p>
+                <p class="remove-file" id="myFile-remove" onclick="removeFileName()"><i class="fas fa-minus-circle fa-sm text-white-70" aria-hidden="true"></i></p>
+               
+            </div> 
+        
+
+        </form>
+
+        <div class=" recent-files-box">
+            
+            <h6 class="mt-3 mb-4 text-bold-7">  Files</h6>
+            <div class="row">
+
+                {% for i in file_up %}
+                <div class="col-lg-12 mb-2">
+        
+                
+                    <div class="card mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">{{i.file_Name}}</h6>
+                        </div>
+                        <div class="card-body">
+                        
+                            <p>
+                                {% if i.file_data %}
+                                    <a href="{{i.file_data.url}}" download="{{i.file_data.url}}">{{i.file_data}} <i class="fas fa-file-excel fa-sm text-white-70"></i>  </a>
+                                {% endif %}
+                            </p>
+                           
+                        
+                        </div>
+                    </div>
+    
+                </div>
+                {% endfor %}
+            
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+<!-- File name show -->
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    function displayFileName() {
+      const input = document.getElementById("myFile");
+      const fileName = input.files[0].name;
+      document.getElementById("fileName").innerHTML = fileName;
+      document.getElementById("file_status").innerHTML = 'File Selected';
+    }
+    
+    function removeFileName() {
+        const input = document.getElementById("myFile");
+        const fileName = input.files[0].name;
+        document.getElementById("myFile").value = null;
+        document.getElementById("fileName").innerHTML = '';
+        document.getElementById("file_status").innerHTML = '';
+      }
+   
+</script>
+
+<script>
+    $("#file_name").change(function () {
+       
+        const fileName = $(this).val();
+       
+        $.ajax({
+        url: '{% url "fileName_check" %}',
+          method: 'POST',
+          data: {
+
+            'fileName': fileName,
+             },
+             
+          success: function(response) {
+          
+           
+          }
+        });
+      });
+      
+</script>
+
+
+<!-- End -->
+
+
+{% endblock %}

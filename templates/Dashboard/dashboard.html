@@ -1,0 +1,140 @@
+{% extends 'Dashboard/dashboard_base.html' %}
+{% load static %}
+{% block content %}
+<link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+<style>
+    .text-bold-7
+    {
+        font-weight: 700;
+    }
+    .recent-files-box
+    {
+        max-height: 70vh;
+        margin-bottom: 1em;
+        overflow-y: scroll;
+        padding:0.60em 1em;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+       
+    }
+
+    .recent-files-box::-webkit-scrollbar {
+    width: 7px;
+    }
+    .recent-files-box::-webkit-scrollbar-track {
+        
+        border-radius: 5px;
+    }
+    
+    .recent-files-box::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        -webkit-box-shadow: inset 0 0 4px rgba(112, 111, 111, 0.4); 
+    }
+    .recent-files-box .card
+    {
+
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        border: none;
+        outline: none;
+        font-size: 0.90em;
+    }
+    .recent-files-box .card .card-header
+    {
+        border: none;
+        outline: none;
+     
+    }
+    .recent-files-box .card .card-footer
+    {
+        border: none;
+        outline: none;
+     
+    }
+    .recent-files-box .card .card-header h6{
+        font-size: 0.95em;
+        margin-top: 0.98em;
+        color: rgb(13, 11, 59);
+    }
+</style>
+
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+        <a href="{% url 'upload_files_page' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                class="fas fa-upload fa-sm text-white-60"></i> Upload Data File</a>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Uploaded Files</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{file_up_count}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-file fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+
+    <!-- Content Row -->
+    
+   
+
+    
+    <h6 class="mt-3 mb-4 text-bold-7"> Recent File Uploads</h6>
+    <div class="container-fluid recent-files-box">
+       
+
+        
+        <div class="row">
+
+            <!-- Content Column -->
+            
+            {% for i in file_up %}
+    
+            <div class="col-lg-12 mb-2">
+    
+                <!-- Illustrations -->
+                <div class="card mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">{{i.file_Name}}</h6>
+                    </div>
+                    <div class="card-body">
+                       
+                        <p>
+                            {% if i.file_data %}
+                                <a href="{{i.file_data.url}}" download="{{i.file_data.url}}">{{i.file_data}} <i class="fas fa-file-excel fa-sm text-white-70"></i>  </a>
+                            {% endif %}
+                        </p>
+                    
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+{% endblock %}

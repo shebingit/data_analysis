@@ -12,6 +12,22 @@
     {
     text-align: center;
     }
+    .msg-box
+    {
+        margin-top: 1em;
+    }
+    .error-msg-box .error
+    {
+        font-size: 0.80em;
+        color: #e11515;
+        font-weight: 500;
+    }
+    .success
+    {
+        font-size: 0.80em;
+        color: #29176b;
+        font-weight: 500;
+    }
     #signup-form
     {
         text-align: center;
@@ -123,7 +139,7 @@
         
     </div>
     <div class="container right-side" id="signup-form">
-       <form>
+       <form action="{% url 'Signup_user' %}" method="post">
         {% csrf_token %}
 
         <div class="card form-card">
@@ -131,18 +147,28 @@
             <div class="card-head">
                 <h5>Sign Up</h5>
             </div>
+            {% if success_msg %}
+            <div class="msg-box">
+                <span class="success">{{success_msg}}</span>
+            </div>
+            {% endif %}
+            {% if error_msg %}
+            <div class="msg-box">
+                <span class="error">{{error_msg}}</span>
+            </div>
+            {% endif %}
             <div class="card-body">
                 <div class="inputs-group">
                     
-                    <span><ion-icon name="person-outline"></ion-icon><input type="text" placeholder="Full Name *" required></span> 
+                    <span><ion-icon name="person-outline"></ion-icon><input type="text" name="name" placeholder="Full Name *" required></span> 
                  </div>
                 <div class="inputs-group">
                     
-                   <span><ion-icon name="mail-outline"></ion-icon><input type="email" placeholder="Email Id *" required></span> 
+                   <span><ion-icon name="mail-outline"></ion-icon><input type="email" name="email" placeholder="Email Id *" required></span> 
                 </div>
                 <div class="inputs-group">
                    
-                    <span><ion-icon name="lock-closed-outline"></ion-icon><input type="password" placeholder=" Create Password *" required></span>
+                    <span><ion-icon name="lock-closed-outline"></ion-icon><input type="password" name="psw" placeholder=" Create Password *" required></span>
                 </div>
                 <div class="submitt_btn">
                    <button type="submit">Register</button>
