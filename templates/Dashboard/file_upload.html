@@ -159,7 +159,7 @@
      {% if message %}
     
      <div class="msg-box" >
-         <span class="error" >{{message}}</span>
+         <span class="error" id="submitt-error" >{{message}}</span>
      </div>
 
      {% endif %}
@@ -173,6 +173,9 @@
      </div>
 
      {% endif %}
+     <div class="msg-box" >
+        <span class="error" id="error-msg" ></span>
+    </div>
      <!-- end -->
      
 
@@ -223,7 +226,7 @@
                         
                             <p>
                                 {% if i.file_data %}
-                                    <a href="{{i.file_data.url}}" download="{{i.file_data.url}}">{{i.file_data}} <i class="fas fa-file-excel fa-sm text-white-70"></i>  </a>
+                                    <a href="{{i.file_data.url}}" download="{{i.file_data}}">{{i.file_data}} <i class="fas fa-file-excel fa-sm text-white-70"></i>  </a>
                                 {% endif %}
                             </p>
                            
@@ -280,11 +283,21 @@
              
           success: function(response) {
           
-           
+            $('#error-msg').html(response.message);
           }
         });
       });
+     
+</script>
+
+<script>
+    document.getElementById("file_name").addEventListener("click", function() {
+      this.value = "";
+      document.getElementById("error-msg").innerHTML = '';
+      document.getElementById("submitt-error").innerHTML = '';
       
+    
+    });
 </script>
 
 

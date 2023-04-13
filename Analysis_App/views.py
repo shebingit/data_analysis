@@ -133,9 +133,7 @@ def uploadfiles(request):
                     file_up=UploadFiles()
                     file_up.reg_id=user_reg
                     file_up.file_Name=file_name
-                    fs = FileSystemStorage()
-                    filename = fs.save(files.name, files)
-                    file_up.file_data=fs.url(filename)
+                    file_up.file_data=files
                     file_up.save()
                     file_up=UploadFiles.objects.filter(reg_id=user_reg)
                     success_message='Your File is Uploaded Successful.'
@@ -145,4 +143,49 @@ def uploadfiles(request):
         else:
            return render(request,'Analsis_HomePage.html')
 
+
+def RemoveUpload_File(request,pk):
+    if 'uid' in request.session:
+        if request.session.has_key('uid'):
+            uid = request.session['uid']
+           
+        else:
+            return render(request,'Analsis_HomePage.html')
+        
+        user_reg=RegisterUser.objects.get(id=uid)
+        
+        file_up=UploadFiles.objects.get(id=pk)
+        file_name=file_up.file_Name
+        file_up.delete()
+        delete_msg=file_name + ' File Deleted.'
+        
+        
+        file_up=UploadFiles.objects.filter(reg_id=user_reg)
+        file_up_count=UploadFiles.objects.filter(reg_id=user_reg).count()
+        return render(request,'Dashboard/dashboard.html',{'user_reg':user_reg,'file_up':file_up,'file_up_count':file_up_count,'delete_msg':delete_msg})
+       
+        
+    else:
+        return render(request,'Analsis_HomePage.html')
+
+
    
+def Analysis(request,pk):
+    if 'uid' in request.session:
+        if request.session.has_key('uid'):
+            uid = request.session['uid']
+           
+        else:
+            return render(request,'Analsis_HomePage.html')
+        
+        user_reg=RegisterUser.objects.get(id=uid)
+        
+        file_up=UploadFiles.objects.get(id=pk)
+        excel_contents = file_up.read_excel()
+   
+        return render(request,'Dashboard/Analysis.html',{'user_reg':user_reg,'file_up':file_up,'excel_contents':excel_contents})
+
+    else:
+        return render(request,'Analsis_HomePage.html')
+
+

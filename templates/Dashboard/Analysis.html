@@ -1,0 +1,64 @@
+{% extends 'Dashboard/dashboard_base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<style>
+    .container-fluid
+    {
+        overflow-x: scroll;
+    }
+    #example
+    {
+        font-size: 0.85em;
+    }
+    #example thead tr
+    {
+        font-size: 0.98em;
+    }
+ 
+</style>
+
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+
+
+    <table id="example" class="display nowrap" style="width:100%">
+        <thead>
+            <tr>
+                {% for column in excel_contents.columns %}
+                <th>{{ column }}</th>
+              {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for index, row in excel_contents.iterrows %}
+            <tr>
+                {% for column, value in row.items %}
+                <td>{{ value }}</td>
+                {%endfor %}
+            </tr>
+            {% endfor %}
+           
+        </tbody>
+        
+    </table>
+
+ 
+
+
+</div>
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+
+{% endblock %}

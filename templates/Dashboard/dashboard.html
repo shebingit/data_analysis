@@ -4,6 +4,29 @@
 <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
 
 <style>
+    .msg-box
+    {
+        padding: 1em;
+        text-align: center;
+        font-size: 0.85em;
+     
+        margin-bottom: 1em;
+    }
+    .msg-box .delete-msg
+    {
+        color: rgb(238, 23, 23);
+        font-weight: 600;
+        letter-spacing: 0.05em;
+    }
+    #msgbox {
+        transition: opacity 1s ease-in-out;
+    }
+    #msgbox.hidden {
+        opacity: 0;
+        pointer-events: none;
+        user-select: none;
+    }
+   
     .text-bold-7
     {
         font-weight: 700;
@@ -44,6 +67,12 @@
         outline: none;
      
     }
+    #file-card-body
+    {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
     .recent-files-box .card .card-footer
     {
         border: none;
@@ -55,11 +84,36 @@
         margin-top: 0.98em;
         color: rgb(13, 11, 59);
     }
+    .remove-file i
+    {
+        text-align: end;
+        color: rgb(236, 60, 60);
+        font-size: 0.90em;
+      
+    }
+    .analysis-file i{
+        color: rgb(10, 16, 95);
+        margin-right: 0.90em;
+        font-size: 0.90em;
+        
+    }
+    .report-file i{
+        color: rgb(14, 103, 186);
+        margin-right: 0.90em;
+        font-size: 0.90em;
+        
+    }
+    .date_box
+    {
+        font-size: 0.85em;
+        font-weight: 600;
+    }
 </style>
 
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
+
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -68,6 +122,7 @@
                 class="fas fa-upload fa-sm text-white-60"></i> Upload Data File</a>
     </div>
 
+    
     <!-- Content Row -->
     <div class="row">
 
@@ -92,6 +147,13 @@
         
     </div>
 
+    {% if delete_msg%}
+    <div class="msg-box" id="msgbox">
+        <span class="delete-msg" id="msgbox">{{delete_msg}}</span>
+    </div>
+    {% endif %}
+    
+
     <!-- Content Row -->
     
    
@@ -115,13 +177,25 @@
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">{{i.file_Name}}</h6>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" id="file-card-body">
+
+                        <div>
+                            <p>
+                                {% if i.file_data %}
+                                    <a href="{{i.file_data.url}}" download="{{i.file_data}}">{{i.file_data}} <i class="fas fa-file-excel fa-sm text-white-70"></i>  </a>
+                                {% endif %}
+                            </p>
+                            <span class="date_box">Upload Date : {{i.file_upload_date}}</span>
+                        </div>
+                        <div>
+                            <a href="{% url 'Analysis' i.id %}" class="analysis-file" ><i class="fas fa-search fa-md "> Analysis</i></a>
+                            <a href="#" class="report-file" ><i class="fas fa-file fa-md "> Report</i></a>
+                            <a id='deletebtn' data-toggle="modal" data-target="#delete-modal{{i.id}}" data-id="{{ i.id }}" class="remove-file"  ><i class="fas fa-minus-circle fa-md " > Remove</i></a>
+
+                        </div>
                        
-                        <p>
-                            {% if i.file_data %}
-                                <a href="{{i.file_data.url}}" download="{{i.file_data.url}}">{{i.file_data}} <i class="fas fa-file-excel fa-sm text-white-70"></i>  </a>
-                            {% endif %}
-                        </p>
+                        
+                       
                     
                     </div>
                 </div>
@@ -134,6 +208,81 @@
 
 
 </div>
+
+<!-- Confirmation Modal css -->
+<style>
+    .modal-content
+    {
+        box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+    }
+    .modal-content, .modal-header, .modal-footer
+    {
+        border: none;
+        outline: none;
+        border-radius: 0px;
+    }
+    .titlesize
+    {
+        font-size: 1.1em;
+        font-weight: 600;
+        color: rgb(227, 59, 33);
+    }
+    .modal-body
+    {
+        font-size: 0.90em;
+        font-weight: 600;
+        
+    }
+    .modal-body .file_name
+    {
+        font-size: 1em;
+        font-weight: 700;
+        color: rgb(227, 23, 23);
+    }
+    .btn
+    {
+        font-size: 0.85em;
+        border-radius: 0px;
+        font-weight: 600;
+    }
+</style>
+
+<!-- end-->
+
+
+<!-- Delete Model -->
+{% for i in file_up %}
+
+<div class="modal fade" id="delete-modal{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="delete-modal-label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title titlesize" id="delete-modal-label">Confirmation</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete <span class='file_name'> {{i.file_Name}} </span> file ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <a href="{% url 'RemoveUpload_File' i.id %}"><button type="button" class="btn btn-danger" id="delete-confirm">Delete</button></a>
+        </div>
+      </div>
+    </div>
+</div>
+
+{% endfor %}
+
+<!--- end -->
+
+
+<script>
+    setTimeout(function() {
+        document.getElementById('msgbox').classList.add('hidden');
+    }, 5000);
+</script>
 
 
 

@@ -25,7 +25,9 @@ urlpatterns =[
                 path('Check-File',views.fileName_check,name='fileName_check'),
                 path('Upload-File',views.upload_files_page,name='upload_files_page'),
                 path('Upload-File-Save',views.uploadfiles,name='uploadfiles'),
-                
+                path('Remove-Upload-File/<int:pk>',views.RemoveUpload_File,name='RemoveUpload_File'),
+
+                path('Analysis/<int:pk>',views.Analysis,name='Analysis'),
                 
                 
 
