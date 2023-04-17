@@ -182,8 +182,39 @@ def Analysis(request,pk):
         
         file_up=UploadFiles.objects.get(id=pk)
         excel_contents = file_up.read_excel()
+        
    
         return render(request,'Dashboard/Analysis.html',{'user_reg':user_reg,'file_up':file_up,'excel_contents':excel_contents})
+
+    else:
+        return render(request,'Analsis_HomePage.html')
+
+
+   
+def Analysis_search(request,pk):
+    if 'uid' in request.session:
+        if request.session.has_key('uid'):
+            uid = request.session['uid']
+           
+        else:
+            return render(request,'Analsis_HomePage.html')
+        
+        user_reg=RegisterUser.objects.get(id=uid)
+        
+        file_up=UploadFiles.objects.get(id=pk)
+        excel_contents = file_up.read_excel()
+        file_path = file_up.file_data.path
+        df = pd.read_excel(file_path)
+
+        if request.method =='POST':
+            col=request.POST['colname']
+            val=request.POST['serch_value']
+            excel_contents = df.loc[df[col].astype(str).str.contains(val, case=False)]
+
+            content={'col':col,'val':request.POST['serch_value']}
+         
+   
+        return render(request,'Dashboard/Analysis.html',{'user_reg':user_reg,'file_up':file_up,'excel_contents':excel_contents,'content':content})
 
     else:
         return render(request,'Analsis_HomePage.html')
