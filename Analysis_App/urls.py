@@ -28,6 +28,8 @@ urlpatterns =[
                 path('Remove-Upload-File/<int:pk>',views.RemoveUpload_File,name='RemoveUpload_File'),
 
                 path('Analysis/<int:pk>',views.Analysis,name='Analysis'),
+                path('Analysis_search/<int:pk>',views.Analysis_search,name='Analysis_search'),
+                
                 
                 
 
