@@ -26,7 +26,7 @@
         display: flex;
         align-items: center;
         justify-content:center;
-        margin-bottom: 3em;
+        margin-bottom: 1.3em;
         gap: 1em;
     }
     .input-boxs
@@ -54,7 +54,7 @@
         border-radius: 7px;
     }
     .input-boxs input
-    { width: 400px;
+    { width: 300px;
 
     }
    
@@ -101,6 +101,32 @@
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
        
     }
+    
+    .serach-show
+    {
+        border: none;
+        outline: none;
+        padding: 0.70em 1em;
+        font-size: 0.75em;
+        font-weight: 500;
+        margin-bottom: 1.2em;
+        letter-spacing: 0.05em;
+        background: #301082;
+        color: #ffff;
+        
+    }
+    .serach-show a{
+        color: #ffff;
+        font-size: 0.90em;
+    }
+    .serach-show:hover{
+        background: #140931;
+        color: #ffff;
+    }
+    #nmsearch, #range-search, #date-search
+    {
+        display: none;
+    }
  
 </style>
 
@@ -111,12 +137,22 @@
     <p class="display-content">Search by column - {{content.col}} and filter content - {{content.val}}</p>
     {% endif %}
 
-    <div class="search-box">
-        <form action="{% url 'Analysis_search' file_up.id %}" class="search-form" method="post">
+    <button class="serach-show"><a href="{% url 'Analysis' file_up.id %} " class="all-data" >All Data</a></button>
+
+    <button class="serach-show" onclick="NormalSearch()">Normal Search</button> 
+    <button class="serach-show" onclick="RangeSearch()">Range Search</button>  
+    <button class="serach-show" onclick="DateSearch()">Date Search</button>
+   
+      
+    
+
+    <div class="search-box" id="nmsearch">
+       
+      
+
+        <form action="{% url 'Analysis_search' file_up.id %}" class="search-form" method="post"  >
             {% csrf_token %}
-            <div class="input-boxs">
-                <a href="{% url 'Analysis' file_up.id %} " class="all-data" >All Data</a>
-            </div>
+           
             <div class="input-boxs">
                 <select name="colname">
                    
@@ -132,6 +168,61 @@
                     <button class="serachbtn" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </span>
             </div>
+            
+
+        </form>
+    </div>
+    <div class="search-box" id="range-search">
+
+        <form action="{% url 'Analysis_rangesearch' file_up.id %}" class="search-form" method="post" >
+            {% csrf_token %}
+           
+            <div class="input-boxs">
+                <select name="colnamerange">
+                   
+                    <option >Select the column </option>
+                    {% for column in excel_contents.columns %}
+                    <option value="{{column}}">{{ column }} </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="input-boxs">
+                <input type="text" name="start_val" placeholder="Provide Start value">
+            </div>
+            <div class="input-boxs">
+                <input type="text" name="end_val" placeholder="Provide End value">
+                
+            </div>
+            <span>
+                <button class="serachbtn" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+            </span>
+            
+
+        </form>
+    </div>
+    <div class="search-box" id="date-search">
+        <form action="{% url 'Analysis_datesearch' file_up.id %}" class="search-form" method="post" >
+            {% csrf_token %}
+           
+            <div class="input-boxs">
+                <select name="datecol">
+                   
+                    <option >Select the column </option>
+                    {% for column in excel_contents.columns %}
+                    <option value="{{column}}">{{ column }} </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="input-boxs">
+                <input type="date" name="start_dt" placeholder="Provide Start Date">
+            </div>
+            <div class="input-boxs">
+                <input type="date" name="end_dt" placeholder="Provide End Date">
+                
+            </div>
+            <span>
+                <button class="serachbtn" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+            </span>
             
 
         </form>
@@ -168,11 +259,50 @@
 
 
 
-
-
-
-
-
 <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+
+<script>
+    function NormalSearch() {
+      var div = document.getElementById("nmsearch");
+      var div1 = document.getElementById("range-search");
+      var div2 = document.getElementById("date-search");
+      if (div.style.display === "none") {
+        div.style.display = "block";
+        div1.style.display = "none";
+        div2.style.display = "none";
+        div.classList.add("search-form");
+      } else {
+        div.style.display = "none";
+      }
+    }
+
+    function RangeSearch() {
+        var div = document.getElementById("range-search");
+        var div1 = document.getElementById("nmsearch");
+        var div2 = document.getElementById("date-search");
+        if (div.style.display === "none") {
+          div.style.display = "block";
+          div1.style.display = "none";
+          div2.style.display = "none";
+          div.classList.add("search-form");
+        } else {
+          div.style.display = "none";
+        }
+      }
+
+      function DateSearch() {
+        var div = document.getElementById("date-search");
+        var div1 = document.getElementById("nmsearch");
+        var div2 = document.getElementById("range-search");
+        if (div.style.display === "none") {
+          div.style.display = "block";
+          div1.style.display = "none";
+          div2.style.display = "none";
+          div.classList.add("search-form");
+        } else {
+          div.style.display = "none";
+        }
+      }
+  </script>
 
 {% endblock %}

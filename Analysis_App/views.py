@@ -218,5 +218,77 @@ def Analysis_search(request,pk):
 
     else:
         return render(request,'Analsis_HomePage.html')
+    
+
+
+def Analysis_rangesearch(request,pk):
+    if 'uid' in request.session:
+        if request.session.has_key('uid'):
+            uid = request.session['uid']
+           
+        else:
+            return render(request,'Analsis_HomePage.html')
+        
+        user_reg=RegisterUser.objects.get(id=uid)
+        
+        file_up=UploadFiles.objects.get(id=pk)
+        excel_contents = file_up.read_excel()
+        file_path = file_up.file_data.path
+        df = pd.read_excel(file_path)
+
+        if request.method =='POST':
+            col=request.POST['colnamerange']
+            startval=request.POST['start_val']
+            endval=request.POST['end_val']
+            excel_contents = df.loc[(df[col] >= int(startval)) & (df[col] <= int(endval))]
+    
+           
+
+            content={'col':col,'val':'Start value:'+ startval +'  '+'End value:'+ endval}
+         
+   
+        return render(request,'Dashboard/Analysis.html',{'user_reg':user_reg,'file_up':file_up,'excel_contents':excel_contents,'content':content})
+
+    else:
+        return render(request,'Analsis_HomePage.html')
+    
+
+
+def Analysis_datesearch(request,pk):
+    if 'uid' in request.session:
+        if request.session.has_key('uid'):
+            uid = request.session['uid']
+           
+        else:
+            return render(request,'Analsis_HomePage.html')
+        
+        user_reg=RegisterUser.objects.get(id=uid)
+        
+        file_up=UploadFiles.objects.get(id=pk)
+        excel_contents = file_up.read_excel()
+        file_path = file_up.file_data.path
+        df = pd.read_excel(file_path)
+
+        if request.method =='POST':
+            col=request.POST['datecol']
+            startval=request.POST['start_dt']
+            endval=request.POST['end_dt']
+            stardat = pd.to_datetime(startval)
+            enddat = pd.to_datetime(endval)
+            # Convert the column values to pandas datetime objects
+            df[col] = pd.to_datetime(df[col])
+            excel_contents = df.loc[(df[col] >= stardat) & (df[col] <= enddat)]
+    
+           
+
+            content={'col':col,'val':'Start value:'+ startval +'  '+'End value:'+ endval}
+         
+   
+        return render(request,'Dashboard/Analysis.html',{'user_reg':user_reg,'file_up':file_up,'excel_contents':excel_contents,'content':content})
+
+    else:
+        return render(request,'Analsis_HomePage.html')
+    
+    
 
 
