@@ -5,7 +5,7 @@
 
 
 <style>
-    .container-fluid
+    .top-section
     {
         overflow-x: scroll;
     }
@@ -85,6 +85,7 @@
         letter-spacing: 0.05em;
         font-weight: 500;
         background: transparent;
+        border-radius: 5px;
       }
       .serachbtn .fa-search:hover {
         color: #140931;
@@ -109,10 +110,12 @@
         padding: 0.70em 1em;
         font-size: 0.75em;
         font-weight: 500;
-        margin-bottom: 1.2em;
+        margin-bottom: 1.5em;
         letter-spacing: 0.05em;
         background: #301082;
+        border-radius: 10px;
         color: #ffff;
+      
         
     }
     .serach-show a{
@@ -132,7 +135,11 @@
 
 
 <!-- Begin Page Content -->
-<div class="container-fluid">
+<div class="container-fluid top-section">
+    {% if msg %}
+    <p class="display-content"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{msg}}</p>
+    {% endif %}
+
     {% if content %}
     <p class="display-content">Search by column - {{content.col}} and filter content - {{content.val}}</p>
     {% endif %}
@@ -154,16 +161,16 @@
             {% csrf_token %}
            
             <div class="input-boxs">
-                <select name="colname">
+                <select name="colname" required>
                    
-                    <option >Select the column </option>
+                    <option value="0">Select the column </option>
                     {% for column in excel_contents.columns %}
                     <option value="{{column}}">{{ column }} </option>
                     {% endfor %}
                 </select>
             </div>
             <div class="input-boxs">
-                <input type="text" name="serch_value" placeholder="Provide value">
+                <input type="text" name="serch_value" placeholder="Provide value" value="0">
                 <span >
                     <button class="serachbtn" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </span>
@@ -178,19 +185,19 @@
             {% csrf_token %}
            
             <div class="input-boxs">
-                <select name="colnamerange">
+                <select name="colnamerange" required>
                    
-                    <option >Select the column </option>
+                    <option value="0">Select the column </option>
                     {% for column in excel_contents.columns %}
                     <option value="{{column}}">{{ column }} </option>
                     {% endfor %}
                 </select>
             </div>
             <div class="input-boxs">
-                <input type="text" name="start_val" placeholder="Provide Start value">
+                <input type="text" name="start_val" placeholder="Provide Start value" required>
             </div>
             <div class="input-boxs">
-                <input type="text" name="end_val" placeholder="Provide End value">
+                <input type="text" name="end_val" placeholder="Provide End value" required>
                 
             </div>
             <span>
@@ -205,19 +212,19 @@
             {% csrf_token %}
            
             <div class="input-boxs">
-                <select name="datecol">
+                <select name="datecol" required>
                    
-                    <option >Select the column </option>
+                    <option value="0">Select the column </option>
                     {% for column in excel_contents.columns %}
                     <option value="{{column}}">{{ column }} </option>
                     {% endfor %}
                 </select>
             </div>
             <div class="input-boxs">
-                <input type="date" name="start_dt" placeholder="Provide Start Date">
+                <input type="date" name="start_dt" placeholder="Provide Start Date" required>
             </div>
             <div class="input-boxs">
-                <input type="date" name="end_dt" placeholder="Provide End Date">
+                <input type="date" name="end_dt" placeholder="Provide End Date" required>
                 
             </div>
             <span>
@@ -229,7 +236,7 @@
        
     </div>
 
-
+    <!-- Data display table -->
 
     <table id="example" class="display nowrap" style="width:100%">
         <thead>
@@ -252,11 +259,15 @@
         
     </table>
 
- 
-
+    <!-- End -->
 
 </div>
 
+<div class="container-fluid">
+
+ 
+
+</div>
 
 
 <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>

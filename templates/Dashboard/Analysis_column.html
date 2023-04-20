@@ -1,0 +1,182 @@
+{% extends 'Dashboard/dashboard_base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<style>
+    .top-section
+    {
+        overflow-x: scroll;
+    }
+    #example
+    {
+        font-size: 0.85em;
+    }
+    #example thead tr
+    {
+        font-size: 0.98em;
+    }
+    .search-box
+    {
+       padding: 0.70em 1em;
+    }
+    .search-form
+    {
+        display: flex;
+        align-items: center;
+        justify-content:center;
+        margin-bottom: 1.3em;
+        gap: 1em;
+    }
+    .input-boxs
+    {
+        padding: 0.20em;
+        margin: 0.30em;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+        border-radius: 7px;
+       
+    }
+    .all-data
+    {
+        font-size: 0.80em;
+        padding: 0.95em;
+        text-decoration: none;
+    }
+    .input-boxs select,  .input-boxs input
+    {
+        font-size: 0.80em;
+        padding: 0.95em;
+        padding-right: 3.5em;
+        width: 200px;
+        border: none;
+       
+        border-radius: 7px;
+    }
+    .input-boxs input
+    { width: 300px;
+
+    }
+   
+    .input-boxs input[type='text']:focus, .input-boxs select:focus
+    {
+        
+     
+     outline: 1px rgb(12, 51, 103);
+     border: 1px solid #38a9f0;
+     -webkit-box-shadow: 0px 0px 5px rgba(56, 169, 240, 0.75);
+     -moz-box-shadow: 0px 0px 5px rgba(56, 169, 240, 0.75);
+     box-shadow: 0px 0px 5px rgba(56, 169, 240, 0.75);
+       
+    }
+    option {
+        background-color: rgb(255, 255, 40);
+       
+        font-weight: 400;
+      }
+     
+      .serachbtn
+      {
+        padding: 0.50em 1.3em;
+        
+        border: none;
+        outline: none;
+        font-size: 0.85em;
+        letter-spacing: 0.05em;
+        font-weight: 500;
+        background: transparent;
+      }
+      .serachbtn .fa-search:hover {
+        color: #140931;
+        transform:scale(1.1);
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+        padding: 0.40em;
+        border-radius: 10px;
+      }
+    .display-content
+    {
+        font-size: 0.80em ;
+        color: rgb(242, 33, 33);
+        letter-spacing: 0.05em;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+       
+    }
+    
+    .serach-show
+    {
+        border: none;
+        outline: none;
+        padding: 0.70em 1em;
+        font-size: 0.75em;
+        font-weight: 500;
+        margin-bottom: 1.2em;
+        letter-spacing: 0.05em;
+        background: #301082;
+        color: #ffff;
+        
+    }
+    .serach-show a{
+        color: #ffff;
+        font-size: 0.90em;
+    }
+    .serach-show:hover{
+        background: #140931;
+        color: #ffff;
+    }
+    #nmsearch, #range-search, #date-search
+    {
+        display: none;
+    }
+ 
+</style>
+
+
+<!-- Begin Page Content -->
+<div class="container-fluid top-section">
+    {% if msg %}
+    <p class="display-content"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{msg}}</p>
+    {% endif %}
+
+    {% if content %}
+    <p class="display-content">Search by column - {{content.col}} {% if content.val != '0' %} and filter content - 
+        {{content.val}}{% endif %}</p>
+    {% endif %}
+
+    <button class="serach-show"><a href="{% url 'Analysis' file_up.id %} " class="all-data" ><i class="fa fa-backward" aria-hidden="true"></i></a></button>
+
+    <!-- <button class="serach-show" onclick="NormalSearch()">Normal Search</button> 
+    <button class="serach-show" onclick="RangeSearch()">Range Search</button>  
+    <button class="serach-show" onclick="DateSearch()">Date Search</button> -->
+   
+      
+    
+
+
+    <!-- Data display table -->
+
+    <table id="example" class="display nowrap" style="width:100%">
+        <thead>
+            <tr>
+          
+                <th>{{ content.col }}</th>
+           
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in excel_contents %}
+            <tr>
+                <td>{{ i }}</td>
+            </tr>
+            {% endfor %}
+           
+        </tbody>
+        
+    </table>
+
+    <!-- End -->
+
+</div>
+
+
+
+{% endblock %}

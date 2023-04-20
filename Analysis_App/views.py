@@ -209,12 +209,27 @@ def Analysis_search(request,pk):
         if request.method =='POST':
             col=request.POST['colname']
             val=request.POST['serch_value']
-            excel_contents = df.loc[df[col].astype(str).str.contains(val, case=False)]
 
-            content={'col':col,'val':request.POST['serch_value']}
+            #checking the column is selected or not
+            if col == '0':
+                msg='Please select column  head'
+                return render(request,'Dashboard/Analysis.html',{'user_reg':user_reg,'file_up':file_up,'excel_contents':excel_contents,'msg':msg})
+           
+            elif val == '0':
+                # Select the column based on its name
+                excel_contents = df[col].tolist()
+
+                content={'col':col,'val':request.POST['serch_value']}
+                return render(request,'Dashboard/Analysis_column.html',{'user_reg':user_reg,'file_up':file_up,'excel_contents':excel_contents,'content':content})
+            
+            else:
+        
+                excel_contents = df.loc[df[col].astype(str).str.contains(val, case=False)]
+
+                content={'col':col,'val':request.POST['serch_value']}
          
    
-        return render(request,'Dashboard/Analysis.html',{'user_reg':user_reg,'file_up':file_up,'excel_contents':excel_contents,'content':content})
+                return render(request,'Dashboard/Analysis.html',{'user_reg':user_reg,'file_up':file_up,'excel_contents':excel_contents,'content':content})
 
     else:
         return render(request,'Analsis_HomePage.html')
@@ -238,16 +253,20 @@ def Analysis_rangesearch(request,pk):
 
         if request.method =='POST':
             col=request.POST['colnamerange']
-            startval=request.POST['start_val']
-            endval=request.POST['end_val']
-            excel_contents = df.loc[(df[col] >= int(startval)) & (df[col] <= int(endval))]
-    
-           
+            if col == '0':
+                msg='Please select column  head'
+                return render(request,'Dashboard/Analysis.html',{'user_reg':user_reg,'file_up':file_up,'excel_contents':excel_contents,'msg':msg})
+            else:
+                startval=request.POST['start_val']
+                endval=request.POST['end_val']
+                excel_contents = df.loc[(df[col] >= int(startval)) & (df[col] <= int(endval))]
+        
+            
 
-            content={'col':col,'val':'Start value:'+ startval +'  '+'End value:'+ endval}
+                content={'col':col,'val':'Start value:'+ startval +'  '+'End value:'+ endval}
          
    
-        return render(request,'Dashboard/Analysis.html',{'user_reg':user_reg,'file_up':file_up,'excel_contents':excel_contents,'content':content})
+                return render(request,'Dashboard/Analysis.html',{'user_reg':user_reg,'file_up':file_up,'excel_contents':excel_contents,'content':content})
 
     else:
         return render(request,'Analsis_HomePage.html')
@@ -271,20 +290,25 @@ def Analysis_datesearch(request,pk):
 
         if request.method =='POST':
             col=request.POST['datecol']
-            startval=request.POST['start_dt']
-            endval=request.POST['end_dt']
-            stardat = pd.to_datetime(startval)
-            enddat = pd.to_datetime(endval)
-            # Convert the column values to pandas datetime objects
-            df[col] = pd.to_datetime(df[col])
-            excel_contents = df.loc[(df[col] >= stardat) & (df[col] <= enddat)]
-    
-           
+            if col == '0':
+                msg='Please select column  head'
+                return render(request,'Dashboard/Analysis.html',{'user_reg':user_reg,'file_up':file_up,'excel_contents':excel_contents,'msg':msg})
 
-            content={'col':col,'val':'Start value:'+ startval +'  '+'End value:'+ endval}
+            else:
+                startval=request.POST['start_dt']
+                endval=request.POST['end_dt']
+                stardat = pd.to_datetime(startval)
+                enddat = pd.to_datetime(endval)
+                # Convert the column values to pandas datetime objects
+                df[col] = pd.to_datetime(df[col])
+                excel_contents = df.loc[(df[col] >= stardat) & (df[col] <= enddat)]
+        
+            
+
+                content={'col':col,'val':'Start value:'+ startval +'  '+'End value:'+ endval}
          
    
-        return render(request,'Dashboard/Analysis.html',{'user_reg':user_reg,'file_up':file_up,'excel_contents':excel_contents,'content':content})
+                return render(request,'Dashboard/Analysis.html',{'user_reg':user_reg,'file_up':file_up,'excel_contents':excel_contents,'content':content})
 
     else:
         return render(request,'Analsis_HomePage.html')
