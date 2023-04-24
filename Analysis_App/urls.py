@@ -32,10 +32,6 @@ urlpatterns =[
                 path('Analysis-range-search/<int:pk>',views.Analysis_rangesearch,name='Analysis_rangesearch'),
                 path('Analysis-date-search-search/<int:pk>',views.Analysis_datesearch,name='Analysis_datesearch'),
                  
-                
-                
-                
-                
 
 
               
