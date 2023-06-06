@@ -16,6 +16,9 @@ urlpatterns =[
 
 
                 #User Dasboard
+
+                path('TestPage',views.TestPage,name='TestPage'),
+
                 
                 path('User-Dashboard',views.user_dashboard,name='user_dashboard'),
                 path('User-Logout',views.user_logout,name='user_logout'),

@@ -8,6 +8,9 @@ from django.http import JsonResponse
 # All the data analysis function for this site  listout here
 # Home page load
 
+def TestPage(request):
+    return render(request,'Dashboard/Test.html')
+
 def Analysis_HomePage(request):
     return render(request,'Analsis_HomePage.html')
 
