@@ -1,0 +1,194 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Alkatra:wght@400;500&family=Anuphan&family=Cormorant+Garamond:wght@300;400;700&family=Habibi&family=Inter:wght@100;200&family=Libre+Baskerville:wght@400;700&family=Playfair+Display:wght@400;600&family=Poppins:wght@200&family=Quicksand:wght@300;400;500&family=Raleway:wght@100;200&family=Roboto&family=Roboto+Condensed&family=Rosarivo&family=Ubuntu:wght@300&family=Work+Sans:wght@200&display=swap');
+
+
+.Log_section, .Signup_section
+{
+    background-image:linear-gradient(0deg, rgba(21, 24, 26, 0.537), rgba(23, 28, 33, 0.608)),  url('../img/home_bg.webp');
+    padding: 2em;
+    display: grid;
+    grid-template-columns: 1.4fr 0.80fr;
+    align-items: center;
+    min-height: 92vh;
+}
+.left-side h1
+{
+    font-weight: 600;
+    font-size: 2.5rem;
+    color: #f1eff4;
+    letter-spacing: 0.06rem;
+}
+.left-side p{
+    color: #f1eff4;
+    font-size: 1.1rem;
+    letter-spacing: 0.06rem;
+    line-height: 1.7rem;
+    margin-top: 1rem;
+}
+#home-content
+{
+text-align: center;
+}
+.error-msg-box
+{
+    margin-top: 1em;
+}
+.success
+{
+    font-size: 0.80em;
+    color: #4fc307;
+    font-weight: 500; 
+}
+.error-msg-box .error, .error
+{
+    font-size: 0.80em;
+    color: #e11515;
+    font-weight: 500;
+}
+#login-form
+{
+    text-align: center;
+
+}
+.form-card
+{
+    padding: 2em;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    background: transparent; 
+    background-color: #fff;
+    border-radius: 20px;
+    max-width: 330px;
+}
+.form-card:hover{
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+}
+.card-head
+{
+    text-align: center;
+    font-size: 1.6em;
+    font-weight: 600;
+    color: rgb(24, 11, 75);
+    letter-spacing: 0.06em;
+}
+
+.inputs-group
+{
+    padding:0.10em 1em;
+    text-align: center;
+}
+
+.inputs-group input{
+    width: 80%;
+    height: 40px;
+    border: none ;
+    border-bottom: 1px solid  aliceblue;
+    background: transparent;
+    margin-top: 2em;
+   
+    outline: none;
+    font-size: 0.80em;
+}
+.inputs-group ion-icon 
+{
+    padding-right: 0.40em;
+}
+.submitt_btn
+{
+    text-align: center;
+    margin-top: 1.6em;
+  
+}
+.submitt_btn button
+{
+    border: none;
+    padding: 0.40em 1em;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    font-size: 0.80em;
+    background:#250959;
+    color: #fff;
+    border-radius: 5px;
+}
+.submitt_btn button:hover
+{ 
+    color: #f1eff4;
+   
+    background:#000000;
+}
+.div-link
+{
+    padding: 0.60em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1em;
+}
+.div-link a{
+    font-size: 0.75em;
+    font-weight: 500;
+    text-decoration: none;
+    letter-spacing: 0.07em;
+    font-style: italic;
+}
+.div-link a:hover
+{
+   
+    color: #080836;
+}
+@media(max-width:734px)
+{
+    .div-link
+    {
+        flex-direction: column;
+        padding: 0.30em;
+        margin-top: 0.40em;
+    }
+    .div-link a{
+        margin-top: 0.80em;
+    }
+}
+
+#full-section
+    {
+        background: #00000008;
+
+       
+    }
+  
+    .navbar-brand {
+        padding-left: 1.8rem;
+    }
+    .navbar-nav .nav-link {
+        padding-left: 2rem;
+    }
+    #navbarNav
+    {
+
+        justify-content:end; 
+        margin-right: 3rem;
+    }
+    #navbarNav ul li
+    {
+
+       padding-right: 1em;
+    }
+    .navbar-toggler {
+        margin-right: 1rem;
+        border:none;
+        border-radius: .25rem;
+    }
+    .navbar-toggler:focus {
+        text-decoration: none;
+        outline: 0;
+        box-shadow: 0 0 0 0.02rem;
+    }
+
+    @media(max-width:832px)
+    {
+        #Top-section
+        {
+            grid-template-columns: repeat(1,1fr);
+        }
+    }
